@@ -10,12 +10,12 @@ $ gem install erb_safe_ext
 
 ## Introduction
 
-``` ruby
+``` erb
 <%= "<script>alert('safety:)');</script>" %>
 ## => &lt;script&gt;alert(&#x27;safety:)&#x27;);&lt;&#x2F;script&gt;
 ```
 
-wrap the dangerous code with `Rack::Utils.escape_html(code)`
+it will default wrap the dangerous code with `Rack::Utils.escape_html(code)`
 
 works fine with ruby2.1.
 
@@ -23,7 +23,7 @@ I didn't test this code with other version ruby, you may test yourself.
 
 the `<%==` is the backup of ERB's original `<%=` function. 
 
-``` ruby
+``` erb
 <%== "<script>alert('danger!');</script>" %>
 ## => <script>alert('danger!');</script>
 ```

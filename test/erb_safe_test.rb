@@ -1,13 +1,13 @@
 
-#$:.unshift File.expand_path("../lib", __dir__)
+$:.unshift File.expand_path("../lib", __dir__)
 
 require 'erb_safe_ext'
 
 template = ERB.new <<-EOF
+<%= "hello, #{'world'}." %>
 <%= "<script>alert('safety:)');</script>" %>
-<%#= 'here' -%>
 <%== "<script>alert('danger!');</script>" %>
-----finish----
+this is the end.
 EOF
 puts template.result
 
