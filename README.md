@@ -15,7 +15,7 @@ $ gem install erb_safe_ext
 ## => &lt;script&gt;alert(&#x27;safety:)&#x27;);&lt;&#x2F;script&gt;
 ```
 
-it will default wrap the dangerous code with `Rack::Utils.escape_html(code)`
+it will default wrap the dangerous code with `ERB::Util.html_escape(code)`
 
 works fine with ruby2.1.
 
