@@ -5,7 +5,7 @@ require 'sinarey_cache/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "erb_safe_ext"
-  spec.version       = "1.0.1"
+  spec.version       = "1.0.2"
   spec.authors       = ["Jeffrey"]
   spec.email         = ["jeffrey6052@163.com"]
   spec.description   = "make ERB default html safe.protect from XSS attack."
