@@ -1,5 +1,4 @@
 require 'erb'
-require 'rack'
 
 class ERB
   class Compiler
