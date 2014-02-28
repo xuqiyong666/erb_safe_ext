@@ -17,7 +17,7 @@ $ gem install erb_safe_ext
 
 it will default wrap the dangerous code with `ERB::Util.html_escape(code)`
 
-works fine with ruby2.1.
+works fine with ruby2.0.
 
 I didn't test this code with other version ruby, you may test yourself.
 

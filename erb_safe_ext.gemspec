@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["jeffrey6052@163.com"]
   spec.description   = "make ERB default html safe.protect from XSS attack."
   spec.summary       = "wrap the dangerous code with ERB::Util.html_escape()"
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/maymay25/erb_safe_ext"
   spec.license       = "MIT"
 
   spec.files         = ['lib/erb_safe_ext.rb',
