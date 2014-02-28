@@ -9,6 +9,8 @@ template = ERB.new <<-EOF
 <%== "<script>alert('danger!');</script>" %>
 this is the end.
 EOF
+
+#puts template.src
 puts template.result
 
 
