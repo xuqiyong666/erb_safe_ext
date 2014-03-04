@@ -5,7 +5,7 @@ require 'sinarey_cache/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "erb_safe_ext"
-  spec.version       = "1.0.2"
+  spec.version       = "1.0.3"
   spec.authors       = ["Jeffrey"]
   spec.email         = ["jeffrey6052@163.com"]
   spec.description   = "make ERB default html safe.protect from XSS attack."
@@ -14,6 +14,7 @@ Gem::Specification.new do |spec|
   spec.license       = "MIT"
 
   spec.files         = ['lib/erb_safe_ext.rb',
+                        'lib/erb_safe_ext/sinatra/exception_template.rb',
                         'test/erb_safe_test.rb',
                         'erb_safe_ext.gemspec',
                         'README.md']

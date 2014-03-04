@@ -55,6 +55,16 @@ So don't do following things:
 
 2. add gems that dependent on erubis, such as `better_errors` (you may find out all dependences in file `Gemfile.lock`)
 
+
+### Sinatra exception template
+the original sinatra exception template display ugly with erb_safe_ext, so I rewrite it.
+
+``` ruby
+require 'sinatra/base'
+require 'erb_safe_ext/sinatra/exception_template'
+```
+
+
 yeah.happy coding:)
 
 
