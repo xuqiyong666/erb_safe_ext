@@ -68,7 +68,7 @@ class ERB
       return out.script, enc
     end
     def add_insert_escapehtml_cmd(out, content)
-      out.push("#{@insert_cmd}(ERB::Util.html_escape(#{content}))")
+      out.push("#{@insert_cmd}(ERB::Util.html_escape((#{content})))")
     end
     class TrimScanner < Scanner
       def scan_line(line)
