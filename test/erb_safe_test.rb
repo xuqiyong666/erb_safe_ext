@@ -5,8 +5,8 @@ require 'erb_safe_ext'
 
 template = ERB.new <<-EOF
 <%= "hello, #{'world'}." %>
-<%= "<script>alert('safety:)');</script>" %>
-<%== "<script>alert('danger!');</script>" %>
+<%~ "<script>alert('safety:)');</script>" %>
+<%= "<script>alert('danger!');</script>" %>
 this is the end.
 EOF
 

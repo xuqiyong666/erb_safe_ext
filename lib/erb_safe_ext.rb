@@ -22,7 +22,7 @@ class ERB
             out.cr
           when :cr
             out.cr
-          when '<%', '<%==', '<%=', '<%#'
+          when '<%', '<%~', '<%=', '<%#'
             scanner.stag = token
             add_put_cmd(out, content) if content.size > 0
             content = ''
@@ -47,9 +47,9 @@ class ERB
               else
                 out.push(content)
               end
-            when '<%=='
-              add_insert_cmd(out, content)
             when '<%='
+              add_insert_cmd(out, content)
+            when '<%~'
               add_insert_escapehtml_cmd(out, content)
             when '<%#'
               # out.push("# #{content_dump(content)}")
@@ -72,7 +72,7 @@ class ERB
     end
     class TrimScanner < Scanner
       def scan_line(line)
-        line.scan(/(.*?)(<%%|%%>|<%==|<%=|<%#|<%|%>|\n|\z)/m) do |tokens|
+        line.scan(/(.*?)(<%%|%%>|<%~|<%=|<%#|<%|%>|\n|\z)/m) do |tokens|
           tokens.each do |token|
             next if token.empty?
             yield(token)
@@ -80,7 +80,7 @@ class ERB
         end
       end
       def trim_line1(line)
-        line.scan(/(.*?)(<%%|%%>|<%==|<%=|<%#|<%|%>\n|%>|\n|\z)/m) do |tokens|
+        line.scan(/(.*?)(<%%|%%>|<%~|<%=|<%#|<%|%>\n|%>|\n|\z)/m) do |tokens|
           tokens.each do |token|
             next if token.empty?
             if token == "%>\n"
@@ -94,7 +94,7 @@ class ERB
       end
       def trim_line2(line)
         head = nil
-        line.scan(/(.*?)(<%%|%%>|<%==|<%=|<%#|<%|%>\n|%>|\n|\z)/m) do |tokens|
+        line.scan(/(.*?)(<%%|%%>|<%~|<%=|<%#|<%|%>\n|%>|\n|\z)/m) do |tokens|
           tokens.each do |token|
             next if token.empty?
             head = token unless head
@@ -114,7 +114,7 @@ class ERB
         end
       end
       def explicit_trim_line(line)
-        line.scan(/(.*?)(^[ \t]*<%\-|<%\-|<%%|%%>|<%==|<%=|<%#|<%|-%>\n|-%>|%>|\z)/m) do |tokens|
+        line.scan(/(.*?)(^[ \t]*<%\-|<%\-|<%%|%%>|<%~|<%=|<%#|<%|-%>\n|-%>|%>|\z)/m) do |tokens|
           tokens.each do |token|
             next if token.empty?
             if @stag.nil? && /[ \t]*<%-/ =~ token
@@ -130,7 +130,7 @@ class ERB
           end
         end
       end
-      ERB_STAG << '<%=='
+      ERB_STAG << '<%~'
       def is_erb_stag?(s)
         ERB_STAG.member?(s)
       end
@@ -138,7 +138,7 @@ class ERB
     Scanner.default_scanner = TrimScanner
     class SimpleScanner < Scanner # :nodoc:
       def scan
-        @src.scan(/(.*?)(<%%|%%>|<%==|<%=|<%#|<%|%>|\n|\z)/m) do |tokens|
+        @src.scan(/(.*?)(<%%|%%>|<%~|<%=|<%#|<%|%>|\n|\z)/m) do |tokens|
           tokens.each do |token|
             next if token.empty?
             yield(token)
@@ -151,7 +151,7 @@ class ERB
       require 'strscan'
       class SimpleScanner2 < Scanner # :nodoc:
         def scan
-          stag_reg = /(.*?)(<%%|<%==|<%=|<%#|<%|\z)/m
+          stag_reg = /(.*?)(<%%|<%~|<%=|<%#|<%|\z)/m
           etag_reg = /(.*?)(%%>|%>|\z)/m
           scanner = StringScanner.new(@src)
           while ! scanner.eos?
@@ -164,7 +164,7 @@ class ERB
       Scanner.regist_scanner(SimpleScanner2, nil, false)
       class ExplicitScanner < Scanner # :nodoc:
         def scan
-          stag_reg = /(.*?)(^[ \t]*<%-|<%%|<%==|<%=|<%#|<%-|<%|\z)/m
+          stag_reg = /(.*?)(^[ \t]*<%-|<%%|<%~|<%=|<%#|<%-|<%|\z)/m
           etag_reg = /(.*?)(%%>|-%>|%>|\z)/m
           scanner = StringScanner.new(@src)
           while ! scanner.eos?
